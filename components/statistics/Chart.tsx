@@ -6,6 +6,7 @@ import { Segment } from '../shared/Segment';
 import { useState } from 'react';
 import { globals, width } from '@/styles/globals';
 import dayjs from 'dayjs';
+import { useChartTransferData } from '@/hooks/useChart/useChart';
 
 type TProps = {
   data: any;
@@ -15,6 +16,16 @@ export const LineChartView = ({ data: labelData }: TProps) => {
   // console.log(`labelData:`, labelData);
   const colorScheme = useColorScheme();
   const [isActive, setIsActive] = useState('week');
+  const { data, isLoading, error } = useChartTransferData({ range: 'week' });
+
+  if (isLoading) {
+    return <Text>Loading transfers...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error: {error.message}</Text>;
+  }
+
   const data1 = Array.from({ length: 12 }, () => Math.random() * 250);
   const data2 = Array.from({ length: 12 }, () => Math.random() * 75);
   //   function dateObjectIntoArray(obj: Record<string, string>): string[] {
