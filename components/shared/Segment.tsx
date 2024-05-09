@@ -1,4 +1,5 @@
 import { Colors } from '@/styles/colors';
+import { Fonts } from '@/styles/fonts';
 import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 export const Segment = ({
@@ -66,15 +67,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   activeText: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontFamily: 'PoppinsSemiBold600',
+    ...Fonts.subtitle,
     color: Colors.light.white,
   },
   inactiveText: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontFamily: 'PoppinsSemiBold600',
+    ...Fonts.subtitle,
     color: Colors.light.grey_subtitle,
   },
 });

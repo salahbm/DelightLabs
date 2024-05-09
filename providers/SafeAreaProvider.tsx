@@ -40,15 +40,12 @@ const SafeAreaRootProvider = ({ children }: Props) => {
         edges={['top']}
         style={{
           flex: 1,
-          backgroundColor:
-            colorScheme === 'light' ? Colors.light.background : Colors.dark.background,
+          backgroundColor: colorScheme === 'light' ? Colors.light.white : Colors.dark.background,
         }}
       >
         <StatusBar
-          backgroundColor={
-            colorScheme === 'light' ? Colors.light.background : Colors.dark.background
-          }
-          barStyle="light-content"
+        // backgroundColor={colorScheme === 'light' ? Colors.light.white : Colors.dark.background}
+        // barStyle="light-content"
         />
         {children}
       </SafeAreaView>

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { Colors } from './colors';
 
 export const globals = StyleSheet.create({
@@ -39,3 +39,16 @@ export const globals = StyleSheet.create({
     marginVertical: 10,
   },
 });
+
+export const Spacing = {
+  xxs: 4,
+  xs: 8,
+  s: 12,
+  m: 16,
+  l: 20,
+  xl: 24,
+  xxl: 32,
+};
+
+export const height = Dimensions.get('window');
+export const width = Dimensions.get('window');

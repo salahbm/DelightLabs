@@ -1,20 +1,20 @@
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from '@/hooks/common/useColorScheme';
 import { Colors } from '@/styles/colors';
 import { Segment } from '../shared/Segment';
 import { useState } from 'react';
-import { globals } from '@/styles/globals';
+import { globals, width } from '@/styles/globals';
+import dayjs from 'dayjs';
 
 type TProps = {
   data: any;
-  minDate?: string;
 };
 
-export const LineChartView = ({ data: labelData, minDate }: TProps) => {
+export const LineChartView = ({ data: labelData }: TProps) => {
+  // console.log(`labelData:`, labelData);
   const colorScheme = useColorScheme();
   const [isActive, setIsActive] = useState('week');
-  const chartWidth = Dimensions.get('window').width;
   const data1 = Array.from({ length: 12 }, () => Math.random() * 250);
   const data2 = Array.from({ length: 12 }, () => Math.random() * 75);
   //   function dateObjectIntoArray(obj: Record<string, string>): string[] {
@@ -73,10 +73,11 @@ export const LineChartView = ({ data: labelData, minDate }: TProps) => {
     <View>
       <View style={globals.rowBetween}>
         <Segment isActive={isActive} labels={['Week', 'Month']} setIsActive={setIsActive} />
+        <Text style={{ color: 'white' }}>{dayjs('2019-01-25').format('DD/MM/YYYY')}</Text>
       </View>
       <LineChart
         data={{
-          labels: ['Jan', 'Feb', 'March', 'Apr', 'May', 'June', 'July'],
+          labels: ['Jan', 'July'],
           datasets: [
             {
               data: data1,
@@ -97,7 +98,7 @@ export const LineChartView = ({ data: labelData, minDate }: TProps) => {
         transparent
         bezier
         withDots
-        width={chartWidth}
+        width={width.width}
         height={220}
         withVerticalLines={false}
         withInnerLines={false}
@@ -121,11 +122,4 @@ export const LineChartView = ({ data: labelData, minDate }: TProps) => {
   );
 };
 
-const styles = StyleSheet.create({
-  chartTxt: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontFamily: 'PoppinsMedium500',
-    color: '#BDBDBD',
-  },
-});
+const styles = StyleSheet.create({});

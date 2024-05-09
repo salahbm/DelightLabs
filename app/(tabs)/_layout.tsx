@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from '@/hooks/common/useColorScheme';
 import { Colors } from '@/styles/colors';
 
 export default function TabLayout() {
@@ -15,14 +15,12 @@ export default function TabLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor:
-            colorScheme === 'light' ? Colors.light.background : Colors.dark.tabBackground,
+          backgroundColor: colorScheme === 'light' ? Colors.light.white : Colors.dark.tabBackground,
           borderTopWidth: 0,
         },
       }}
       sceneContainerStyle={{
-        backgroundColor:
-          colorScheme === 'light' ? Colors.light.background : Colors.dark.tabBackground,
+        backgroundColor: colorScheme === 'light' ? Colors.light.background : Colors.dark.background,
       }}
     >
       <Tabs.Screen

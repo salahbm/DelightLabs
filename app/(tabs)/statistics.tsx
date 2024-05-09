@@ -1,27 +1,28 @@
-import { Image, ScrollView, StyleSheet } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
-import { ThemedView } from '@/components/shared/ThemedView';
 import { ThemedText } from '@/components/shared/ThemedText';
 import { bell, bell_on } from '@/assets/icons';
 import { LineChartView } from '@/components/statistics/Chart';
+import chartData from '@/constants/chart_data.json';
+import { Spacing } from '@/styles/globals';
 
 export default function Statistics() {
   let isNotifications = false;
   return (
     <ScrollView style={styles.container}>
-      <ThemedView style={styles.headerBox}>
+      <View style={styles.headerBox}>
         <ThemedText type="defaultSemiBold">Transactions</ThemedText>
         <Image source={isNotifications ? bell_on : bell} style={styles.notifyImg} alt="NOTIFY" />
-      </ThemedView>
-      <LineChartView />
+      </View>
+      <LineChartView data={chartData} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { paddingHorizontal: 24 },
+  container: { paddingHorizontal: Spacing.l },
   headerBox: {
-    marginVertical: 24,
+    marginVertical: Spacing.l,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
