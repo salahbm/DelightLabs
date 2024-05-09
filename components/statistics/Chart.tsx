@@ -1,10 +1,10 @@
-import dayjs from 'dayjs';
-import { useCallback, useEffect } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
-import React from 'react';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Colors } from '@/styles/colors';
+import { Segment } from '../shared/Segment';
+import { useState } from 'react';
+import { globals } from '@/styles/globals';
 
 type TProps = {
   data: any;
@@ -13,6 +13,7 @@ type TProps = {
 
 export const LineChartView = ({ data: labelData, minDate }: TProps) => {
   const colorScheme = useColorScheme();
+  const [isActive, setIsActive] = useState('week');
   const chartWidth = Dimensions.get('window').width;
   const data1 = Array.from({ length: 12 }, () => Math.random() * 250);
   const data2 = Array.from({ length: 12 }, () => Math.random() * 75);
@@ -70,6 +71,9 @@ export const LineChartView = ({ data: labelData, minDate }: TProps) => {
   //   }, []);
   return (
     <View>
+      <View style={globals.rowBetween}>
+        <Segment isActive={isActive} labels={['Week', 'Month']} setIsActive={setIsActive} />
+      </View>
       <LineChart
         data={{
           labels: ['Jan', 'Feb', 'March', 'Apr', 'May', 'June', 'July'],
@@ -86,10 +90,6 @@ export const LineChartView = ({ data: labelData, minDate }: TProps) => {
               strokeWidth: 2,
               withScrollableDot: true,
               withDots: true,
-
-              colors: (opacity: number) => {
-                [`rgba(91, 218, 164, ${opacity})    `, `rgba(91, 218, 164, ${opacity})    `];
-              },
             },
           ],
         }}
@@ -115,7 +115,7 @@ export const LineChartView = ({ data: labelData, minDate }: TProps) => {
           //   fillShadowGradientFrom: 'rgba(91, 218, 164, 1)',
           //   fillShadowGradientTo: 'rgba(91, 218, 164, 1)',
         }}
-        style={{ marginVertical: 10, marginLeft: -35 }}
+        style={{ marginVertical: 10, marginLeft: -25 }}
       />
     </View>
   );

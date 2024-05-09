@@ -1,9 +1,41 @@
-export const COLORS = {
-  primary: 'rgba(54, 48, 98, 1)',
-  grey_title: 'rgba(189, 189, 189, 1)',
-  grey_background: 'rgba(226, 226, 226, 1)',
-  grey_subtitle: 'rgba(107, 107, 107, 1)',
-  black: 'rgba(0, 0, 0, 1)',
-  white: 'rgba(255, 255, 255, 1)',
-  green: 'rgba(91, 218, 164, 1)',
-};
+import { StyleSheet } from 'react-native';
+import { Colors } from './colors';
+
+export const globals = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  rowBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  rowStart: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  column: {
+    flexDirection: 'column',
+  },
+  columnCenter: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  columnBetween: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: Colors.light.grey_background,
+    marginVertical: 10,
+  },
+});

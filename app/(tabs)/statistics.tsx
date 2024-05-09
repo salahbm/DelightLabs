@@ -1,7 +1,7 @@
 import { Image, ScrollView, StyleSheet } from 'react-native';
 
-import { ThemedView } from '@/components/ThemedView';
-import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/shared/ThemedView';
+import { ThemedText } from '@/components/shared/ThemedText';
 import { bell, bell_on } from '@/assets/icons';
 import { LineChartView } from '@/components/statistics/Chart';
 
