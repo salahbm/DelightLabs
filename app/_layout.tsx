@@ -1,4 +1,8 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -13,7 +17,10 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    PoppinsRegular400: require('../assets/fonts/Poppins-Regular.ttf'),
+    PoppinsMedium500: require('../assets/fonts/Poppins-Medium.ttf'),
+    PoppinsSemiBold600: require('../assets/fonts/Poppins-SemiBold.ttf'),
+    PoppinsBold700: require('../assets/fonts/Poppins-Bold.ttf'),
   });
 
   useEffect(() => {
