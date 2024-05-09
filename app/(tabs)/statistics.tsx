@@ -1,10 +1,34 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet } from 'react-native';
+import { Image, ScrollView, StyleSheet } from 'react-native';
 
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/ThemedText';
+import { bell, bell_on } from '@/assets/icons';
+import { LineChartView } from '@/components/statistics/Chart';
 
-export default function TabTwoScreen() {
-  return <ParallaxScrollView></ParallaxScrollView>;
+export default function Statistics() {
+  let isNotifications = false;
+  return (
+    <ScrollView style={styles.container}>
+      <ThemedView style={styles.headerBox}>
+        <ThemedText type="defaultSemiBold">Transactions</ThemedText>
+        <Image source={isNotifications ? bell_on : bell} style={styles.notifyImg} alt="NOTIFY" />
+      </ThemedView>
+      <LineChartView />
+    </ScrollView>
+  );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: { paddingHorizontal: 24 },
+  headerBox: {
+    marginVertical: 24,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  notifyImg: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+  },
+});

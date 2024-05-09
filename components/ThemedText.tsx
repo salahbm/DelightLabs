@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     fontFamily: 'PoppinsRegular400',
   },
   defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 24,
+    lineHeight: 36,
     fontFamily: 'PoppinsSemiBold600',
   },
   title: {
