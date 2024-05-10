@@ -1,8 +1,7 @@
-import * as process from 'process';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
-export const API_ROOT = `https://drive.google.com/file/d/1MjV_z-EVO4jkgUCJfok88bvlRP_EI839/view`;
+export const API_ROOT = `https://drive.google.com`;
 
 // IN TERMS OF AUTHENTICATED USER ACCESS TOKEN CAN BE USED
 
@@ -37,11 +36,11 @@ class Agent {
   public async get(url: string, params?: AxiosRequestConfig['params'], withConfig = true) {
     const modifiedUrl = url.replace('http:', 'https:');
     const config = withConfig ? await this.axiosConfig() : {};
-    // const accessToken = await AsyncStorage.getItem('accessToken');
+    const accessToken = await AsyncStorage.getItem('accessToken');
 
-    // if (!accessToken) {
-    //   return Promise.reject(new AxiosError('No access token', 'NO_ACCESS_TOKEN'));
-    // }
+    if (!accessToken) {
+      return Promise.reject(new AxiosError('No access token', 'NO_ACCESS_TOKEN'));
+    }
 
     return this.axios.get(modifiedUrl, { params, ...config });
   }

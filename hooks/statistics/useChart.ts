@@ -36,7 +36,7 @@ const fetchChartData = async (range?: 'week' | 'month') => {
       endDate = dayjs(today).format('YYYY-MM-DD');
       break;
     case 'month':
-      startDate = dayjs(today).startOf('month').format('YYYY-MM-DD');
+      startDate = dayjs(today).subtract(30, 'days').format('YYYY-MM-DD');
       endDate = dayjs(today).format('YYYY-MM-DD');
       break;
     default:

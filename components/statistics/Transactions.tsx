@@ -27,7 +27,7 @@ export const RecentTransactions = ({
                 {item?.name ? item?.name[0].toUpperCase() : 'D'}
               </ThemedText>
             </View>
-            <View style={globals.rowBetween}>
+            <View style={{ ...globals.rowBetween, flex: 1 }}>
               <View>
                 <ThemedText style={{ color: Colors.light.black }}>{item?.name}</ThemedText>
                 <ThemedText type="body" style={{ color: Colors.light.black }}>

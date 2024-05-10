@@ -20,7 +20,7 @@ export default function Statistics() {
     }
   }, [isLoading, isActive]);
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.headerBox}>
         <ThemedText type="defaultSemiBold">Transactions</ThemedText>
         <Image source={isNotifications ? bell_on : bell} style={styles.notifyImg} alt="NOTIFY" />
