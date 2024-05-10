@@ -16,7 +16,6 @@ export const LineChartView = () => {
 
   const [positiveAmounts, setPositiveAmounts] = useState<lineDataItem[]>();
   const [negativeAmounts, setNegativeAmounts] = useState<lineDataItem[]>();
-  console.log(`negativeAmounts:`, negativeAmounts?.length);
   const separateAmounts = useCallback(() => {
     if (!isLoading && data) {
       const parsedAmounts = data.map((item) => {
@@ -109,9 +108,7 @@ export const LineChartView = () => {
           endOpacity={0.3}
           showXAxisIndices={false}
           showYAxisIndices={false}
-          width={width.width}
-          spacing={20}
-          showScrollIndicator
+          spacing={25}
           thickness={2}
           stripColor={Colors.light.grey_background}
           pointerConfig={{

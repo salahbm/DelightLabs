@@ -1,11 +1,14 @@
 import { PropsWithChildren } from 'react';
 import SafeAreaRootProvider from './SafeAreaProvider';
 import QueryProvider from './QueryProvider';
+import { RecoilProvider } from './RecoilProvider';
 
 const RootProvider = ({ children }: PropsWithChildren) => {
   return (
     <SafeAreaRootProvider>
-      <QueryProvider>{children}</QueryProvider>
+      <RecoilProvider>
+        <QueryProvider>{children}</QueryProvider>
+      </RecoilProvider>
     </SafeAreaRootProvider>
   );
 };
