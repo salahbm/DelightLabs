@@ -29,18 +29,14 @@ export const RecentTransactions = ({
             </View>
             <View style={{ ...globals.rowBetween, flex: 1 }}>
               <View>
-                <ThemedText style={{ color: Colors.light.black }}>{item?.name}</ThemedText>
-                <ThemedText type="body" style={{ color: Colors.light.black }}>
-                  {capitalizeFirstLetter(item?.type)}
-                </ThemedText>
+                <ThemedText>{item?.name}</ThemedText>
+                <ThemedText type="body">{capitalizeFirstLetter(item?.type)}</ThemedText>
               </View>
               <View style={styles.amountBox}>
                 <ThemedText type="defaultBold" style={{ color: Colors.light.primary }}>
                   {parseFloat(item?.amount) > 0 ? '+' + item?.amount : item?.amount}
                 </ThemedText>
-                <ThemedText type="body" style={{ color: Colors.light.black }}>
-                  {dayjs(item?.timestamp).format('H.MM A')}
-                </ThemedText>
+                <ThemedText type="body">{dayjs(item?.timestamp).format('H.MM A')}</ThemedText>
               </View>
             </View>
           </View>

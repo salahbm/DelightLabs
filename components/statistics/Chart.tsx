@@ -16,6 +16,7 @@ export const LineChartView = () => {
 
   const [positiveAmounts, setPositiveAmounts] = useState<lineDataItem[]>();
   const [negativeAmounts, setNegativeAmounts] = useState<lineDataItem[]>();
+  console.log(`negativeAmounts:`, negativeAmounts?.length);
   const separateAmounts = useCallback(() => {
     if (!isLoading && data) {
       const parsedAmounts = data.map((item) => {
@@ -91,13 +92,12 @@ export const LineChartView = () => {
           areaChart
           curved
           isAnimated
-          width={width.width}
           animationDuration={1200}
           data={positiveAmounts}
           data2={negativeAmounts}
           height={250}
           showVerticalLines={false}
-          initialSpacing={-10}
+          initialSpacing={0}
           color1={Colors.light.primary}
           color2={Colors.light.green}
           hideAxesAndRules
@@ -105,15 +105,22 @@ export const LineChartView = () => {
           hideDataPoints
           startFillColor1={Colors.light.primary}
           startFillColor2={Colors.light.green}
-          startOpacity={0.4}
+          startOpacity={0.5}
           endOpacity={0.3}
           showXAxisIndices={false}
           showYAxisIndices={false}
+          width={width.width}
+          spacing={20}
+          showScrollIndicator
+          thickness={2}
+          stripColor={Colors.light.grey_background}
           pointerConfig={{
             pointerStripWidth: 1,
             pointer1Color: Colors.light.primary,
             pointer2Color: Colors.light.green,
             radius: 8,
+            activatePointersOnLongPress: true,
+            activatePointersDelay: 100,
             pointerLabelComponent: (items: lineDataItem[]) => {
               return (
                 <View>
@@ -217,7 +224,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: -6,
     right: 0,
-    left: '50%',
+    left: '4.5%',
   },
   triangleExpense: {
     width: 7,
@@ -235,6 +242,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: -6,
     right: 0,
-    left: '50%',
+    left: '4.5%',
   },
 });
