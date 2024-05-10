@@ -20,7 +20,6 @@ const QueryProvider = ({ children }: PropsWithChildren<any>) => {
         },
         queryCache: new QueryCache({
           onError: (error: Error | any, query) => {
-
             if (error.response) {
               Alert.alert(error.response);
               return;
@@ -36,8 +35,8 @@ const QueryProvider = ({ children }: PropsWithChildren<any>) => {
           },
         }),
         mutationCache: new MutationCache({
-          onError: (error: Error | any, , mutation) => {  
-                      if (error.response) {
+          onError: (error: Error | any) => {
+            if (error.response) {
               Alert.alert(error?.response);
             }
           },

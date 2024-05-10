@@ -22,7 +22,7 @@ const filterByDateRange = async (data: Transfer[], startDate: string, endDate: s
   });
 };
 
-const fetchTransfers = async (range?: 'week' | 'month' | '3months') => {
+const fetchTransfers = async (range?: 'week' | 'month' | 'all') => {
   const today = new Date();
 
   let startDate: string;
@@ -37,8 +37,8 @@ const fetchTransfers = async (range?: 'week' | 'month' | '3months') => {
       startDate = dayjs(today).startOf('month').format('YYYY-MM-DD');
       endDate = dayjs(today).format('YYYY-MM-DD');
       break;
-    case '3months':
-      startDate = dayjs(today).subtract(3, 'months').startOf('month').format('YYYY-MM-DD');
+    case 'all':
+      startDate = dayjs(today).subtract(12, 'months').startOf('month').format('YYYY-MM-DD');
       endDate = dayjs(today).format('YYYY-MM-DD');
       break;
     default:
@@ -48,11 +48,10 @@ const fetchTransfers = async (range?: 'week' | 'month' | '3months') => {
   // Filter the entire chartData based on the calculated date range
   const filteredData = await filterByDateRange(chartDataArray, startDate, endDate);
 
-  console.log('Filtered data:', filteredData); // Log the returned data for verification
   return filteredData;
 };
 
-const useChartTransferData = (options?: { range?: 'week' | 'month' | '3months' }) => {
+const useChartTransferData = (options?: { range?: 'week' | 'month' | 'all' }) => {
   const today = new Date();
 
   let startDate: string | undefined;
@@ -70,6 +69,8 @@ const useChartTransferData = (options?: { range?: 'week' | 'month' | '3months' }
   }
 
   endDate = dayjs(today).format('YYYY-MM-DD');
+
+  //******* WORKING WITH REAL DATA AND BACK END useInfiniteQuery can be used to optimize fetch data from DB  *******//
 
   const query = {
     queryKey: ['chartData', options?.range],

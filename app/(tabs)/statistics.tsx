@@ -3,7 +3,7 @@ import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { ThemedText } from '@/components/shared/ThemedText';
 import { bell, bell_on } from '@/assets/icons';
 import { LineChartView } from '@/components/statistics/Chart';
-import chartData from '@/constants/chart_data.json';
+import chartData from '@/constants/chart_mock_data.json';
 import { Spacing } from '@/styles/globals';
 
 export default function Statistics() {

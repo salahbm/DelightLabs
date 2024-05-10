@@ -16,7 +16,7 @@ export const LineChartView = ({ data: labelData }: TProps) => {
   // console.log(`labelData:`, labelData);
   const colorScheme = useColorScheme();
   const [isActive, setIsActive] = useState('week');
-  const { data, isLoading, error } = useChartTransferData({ range: 'week' });
+  const { data, isLoading, error } = useChartTransferData({ range: 'month' });
 
   if (isLoading) {
     return <Text>Loading transfers...</Text>;
