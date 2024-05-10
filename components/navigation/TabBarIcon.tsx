@@ -1,5 +1,5 @@
-import React from 'react';
 import { Image } from 'react-native';
+
 import { home, statistics, user, wallet } from '@/assets/icons';
 
 export function TabBarIcon({ name, color, ...rest }: { name: string; color: string }) {

@@ -1,13 +1,17 @@
 import { Tabs } from 'expo-router';
+import { Platform, View } from 'react-native';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-
 import { useColorScheme } from '@/hooks/common/useColorScheme';
 import { Colors } from '@/styles/colors';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const border = {
+    borderBottomColor: Colors.light.primary,
+    borderBottomWidth: 3,
+    top: Platform.OS === 'ios' ? 15 : 7,
+  };
   return (
     <Tabs
       screenOptions={{
@@ -27,29 +31,48 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name={'home'} color={color} />,
-
+          tabBarIcon: ({ color, focused }) => (
+            <View>
+              <TabBarIcon name={'home'} color={color} />
+              {focused && <View style={border} />}
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="wallet"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color }) => <TabBarIcon name={'wallet'} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <View>
+              <TabBarIcon name={'wallet'} color={color} />
+              {focused && <View style={border} />}
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="statistics"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color }) => <TabBarIcon name={'statistics'} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <View>
+              <TabBarIcon name={'statistics'} color={color} />
+              {focused && <View style={border} />}
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="user"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color }) => <TabBarIcon name={'user'} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <View>
+              <TabBarIcon name={'user'} color={color} />
+              {focused && <View style={border} />}
+            </View>
+          ),
         }}
       />
     </Tabs>
