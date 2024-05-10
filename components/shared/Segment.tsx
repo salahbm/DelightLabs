@@ -1,3 +1,4 @@
+import { TProps } from '@/hooks/useChart/useChart';
 import { Colors } from '@/styles/colors';
 import { Fonts } from '@/styles/fonts';
 import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
@@ -10,7 +11,7 @@ export const Segment = ({
 }: {
   labels: string[];
   setIsActive: (val: string) => void;
-  isActive: string;
+  isActive: TProps;
   containerStyle?: ViewStyle;
 }) => {
   return (

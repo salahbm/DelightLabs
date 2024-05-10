@@ -2,17 +2,19 @@ import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import chartData from '@/constants/chart_mock_data.json';
 
-interface Transfer {
+export interface TChartData {
   amount: string;
   name: string;
   timestamp: string;
   type: string;
 }
 
-// Convert the JSON data to an array of Transfer objects (assuming your JSON data is valid)
-const chartDataArray: Transfer[] = JSON.parse(JSON.stringify(chartData));
+export type TProps = 'week' | 'month';
 
-const filterByDateRange = async (data: Transfer[], startDate: string, endDate: string) => {
+// Convert the JSON data to an array of TChartData objects (assuming your JSON data is valid)
+const chartDataArray: TChartData[] = JSON.parse(JSON.stringify(chartData));
+
+const filterByDateRange = async (data: TChartData[], startDate: string, endDate: string) => {
   const startDateObj = dayjs(startDate, 'YYYY-MM-DD').toDate();
   const endDateObj = dayjs(endDate, 'YYYY-MM-DD').toDate();
 
@@ -22,7 +24,7 @@ const filterByDateRange = async (data: Transfer[], startDate: string, endDate: s
   });
 };
 
-const fetchTransfers = async (range?: 'week' | 'month' | 'all') => {
+const fetchChartData = async (range?: 'week' | 'month') => {
   const today = new Date();
 
   let startDate: string;
@@ -37,10 +39,6 @@ const fetchTransfers = async (range?: 'week' | 'month' | 'all') => {
       startDate = dayjs(today).startOf('month').format('YYYY-MM-DD');
       endDate = dayjs(today).format('YYYY-MM-DD');
       break;
-    case 'all':
-      startDate = dayjs(today).subtract(12, 'months').startOf('month').format('YYYY-MM-DD');
-      endDate = dayjs(today).format('YYYY-MM-DD');
-      break;
     default:
       return [];
   }
@@ -51,7 +49,7 @@ const fetchTransfers = async (range?: 'week' | 'month' | 'all') => {
   return filteredData;
 };
 
-const useChartTransferData = (options?: { range?: 'week' | 'month' | 'all' }) => {
+const useChart = (options?: { range?: 'week' | 'month' }) => {
   const today = new Date();
 
   let startDate: string | undefined;
@@ -74,10 +72,10 @@ const useChartTransferData = (options?: { range?: 'week' | 'month' | 'all' }) =>
 
   const query = {
     queryKey: ['chartData', options?.range],
-    queryFn: () => fetchTransfers(options?.range),
+    queryFn: () => fetchChartData(options?.range),
   };
 
   return useQuery(query);
 };
 
-export { useChartTransferData };
+export { useChart };

@@ -1,103 +1,104 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
+import { Alert, Animated, Dimensions, LayoutAnimation, StyleSheet, Text, View } from 'react-native';
+import { LineChart, ProgressChart } from 'react-native-chart-kit';
 import { useColorScheme } from '@/hooks/common/useColorScheme';
 import { Colors } from '@/styles/colors';
 import { Segment } from '../shared/Segment';
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { globals, width } from '@/styles/globals';
 import dayjs from 'dayjs';
-import { useChartTransferData } from '@/hooks/useChart/useChart';
+import { TChartData, TProps, useChart } from '@/hooks/useChart/useChart';
+import { ThemedText } from '../shared/ThemedText';
+type DatesState = [string, string];
 
-type TProps = {
-  data: any;
-};
-
-export const LineChartView = ({ data: labelData }: TProps) => {
-  // console.log(`labelData:`, labelData);
+export const LineChartView = () => {
   const colorScheme = useColorScheme();
-  const [isActive, setIsActive] = useState('week');
-  const { data, isLoading, error } = useChartTransferData({ range: 'month' });
+  const [isActive, setIsActive] = useState<TProps>('week');
+  const { data, isLoading, error } = useChart({ range: isActive });
 
-  if (isLoading) {
-    return <Text>Loading transfers...</Text>;
-  }
+  const [positiveAmounts, setPositiveAmounts] = useState<number[]>([]);
+  const [negativeAmounts, setNegativeAmounts] = useState<number[]>([]);
+  const [dates, setDates] = useState<Date[]>([]);
 
-  if (error) {
-    return <Text>Error: {error.message}</Text>;
-  }
+  const separateAmounts = useCallback(() => {
+    if (!isLoading && data) {
+      const positive = data
+        .filter((item) => parseFloat(item.amount) >= 0)
+        .map((item) => parseFloat(item.amount));
+      const negative = data
+        .filter((item) => parseFloat(item.amount) < 0)
+        .map((item) => parseFloat(item.amount));
+      setNegativeAmounts(negative);
+      setPositiveAmounts(positive);
+    }
+  }, [data, isLoading]);
 
-  const data1 = Array.from({ length: 12 }, () => Math.random() * 250);
-  const data2 = Array.from({ length: 12 }, () => Math.random() * 75);
-  //   function dateObjectIntoArray(obj: Record<string, string>): string[] {
-  //     const dataArray: string[] = [];
-  //     for (const [key, value] of Object.entries(obj)) {
-  //       dataArray.push(`${key}`);
-  //     }
-  //     return dataArray;
-  //   }
+  const today = new Date();
+  const earliestDate = useMemo(() => {
+    if (data && !isLoading && data.length > 0) {
+      return new Date(
+        data.reduce((minDate, item) => {
+          const itemDate = new Date(item.timestamp);
+          return itemDate < minDate ? itemDate : minDate;
+        }, new Date(data[0].timestamp)),
+      );
+    }
+    return null;
+  }, [data, isLoading]);
 
-  //   function priceObjectIntoArray(obj: Record<string, string>): number[] {
-  //     const dataArray: number[] = [];
-  //     for (const value of Object.values(obj)) {
-  //       // Pad the string with trailing zeros
-  //       const paddedValue = value.padEnd(value.indexOf('.') + 5, '0');
-  //       // Convert the padded string to a floating-point number
-  //       const floatValue = parseFloat(paddedValue);
-  //       // Push the number into the dataArray
-  //       dataArray.push(floatValue);
-  //     }
-  //     return dataArray;
-  //   }
+  const [progressTime, setProgressTime] = useState(0);
 
-  //   const convertDates = dateObjectIntoArray(labelData).map((date) => dayjs(date).format('MM/DD'));
-  //   const minimizeFullMonth = (datesArray: string[]) => {
-  //     const length = datesArray.length;
-  //     if (length > 6) {
-  //       const sixDaysOutOfMonth: string[] = [];
-  //       const interval = Math.floor(length / 5); // Calculate interval between selected days
+  // Define a initial value for chart
+  const animationValue = useRef(new Animated.Value(0)).current;
 
-  //       // Start from the last day and select days at intervals until we have 6 days
-  //       for (let i = length - 1; i >= 0 && sixDaysOutOfMonth.length < 6; i -= interval) {
-  //         sixDaysOutOfMonth.push(datesArray[i]);
-  //       }
+  useEffect(() => {
+    if (error) {
+      Alert.alert(error.message);
+    } else {
+      separateAmounts();
 
-  //       return sixDaysOutOfMonth.reverse(); // Reverse the array to maintain the order
-  //     } else {
-  //       return datesArray;
-  //     }
-  //   };
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+      // Define animation for chart
+      Animated.timing(animationValue, {
+        toValue: 0.95, // Value to graph
+        duration: 1500, // Duration for animation
+        useNativeDriver: true,
+      }).start();
 
-  //   const filterConvertDates = useCallback(() => {
-  //     return convertDates.length > 7
-  //       ? minimizeFullMonth(convertDates).reverse()
-  //       : convertDates.reverse();
-  //   }, [convertDates]);
+      // Listen the animation variable and update chart variable
+      animationValue.addListener(({ value }) => {
+        setProgressTime(value);
+      });
+    }
+  }, [data, isLoading]);
 
-  //   const reverseDataset = useCallback(() => {
-  //     return priceObjectIntoArray(labelData).reverse();
-  //   }, [labelData]);
-  //   useEffect(() => {
-  //     filterConvertDates();
-  //     reverseDataset();
-  //   }, []);
   return (
     <View>
       <View style={globals.rowBetween}>
-        <Segment isActive={isActive} labels={['Week', 'Month']} setIsActive={setIsActive} />
-        <Text style={{ color: 'white' }}>{dayjs('2019-01-25').format('DD/MM/YYYY')}</Text>
+        <Segment
+          isActive={isActive}
+          labels={['Week', 'Month']}
+          setIsActive={setIsActive as () => void}
+        />
+
+        <ThemedText type="body" style={{ color: Colors.light.primary }}>
+          {dayjs(earliestDate).format('MMM DD')}-{dayjs(today).format('MMM DD,YYYY')}
+        </ThemedText>
       </View>
       <LineChart
         data={{
           labels: ['Jan', 'July'],
           datasets: [
             {
-              data: data1,
+              data:
+                positiveAmounts.length > 0
+                  ? positiveAmounts.map((amount) => amount * progressTime)
+                  : [],
               color: () => Colors.light.primary,
               strokeWidth: 2,
               withScrollableDot: true,
             },
             {
-              data: data2,
+              data: negativeAmounts.map((amount) => amount * progressTime),
               color: () => 'rgba(91, 218, 164, 1)',
               strokeWidth: 2,
               withScrollableDot: true,
@@ -110,6 +111,7 @@ export const LineChartView = ({ data: labelData }: TProps) => {
         bezier
         withDots
         width={width.width}
+        withHorizontalLabels={false}
         height={220}
         withVerticalLines={false}
         withInnerLines={false}
@@ -124,10 +126,10 @@ export const LineChartView = ({ data: labelData }: TProps) => {
             stroke: 'transparent',
             strokeDasharray: [0, 0],
           },
-          //   fillShadowGradientFrom: 'rgba(91, 218, 164, 1)',
-          //   fillShadowGradientTo: 'rgba(91, 218, 164, 1)',
+          // fillShadowGradientFrom: 'rgba(91, 218, 164, 1)',
+          // fillShadowGradientTo: 'rgba(91, 218, 164, 1)',
         }}
-        style={{ marginVertical: 10, marginLeft: -25 }}
+        style={{ marginVertical: 10, marginLeft: -55 }}
       />
     </View>
   );
