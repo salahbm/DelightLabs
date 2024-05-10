@@ -1,4 +1,5 @@
 import { Image, StyleSheet } from 'react-native';
+
 import ParallaxScrollView from '@/components/shared/ParallaxScrollView';
 import { ThemedText } from '@/components/shared/ThemedText';
 import { ThemedView } from '@/components/shared/ThemedView';
@@ -17,12 +18,6 @@ export default function TabTwoScreen() {
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
   titleContainer: {
     flexDirection: 'row',
     gap: 8,

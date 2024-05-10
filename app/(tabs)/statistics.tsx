@@ -1,16 +1,16 @@
+import { useEffect, useState } from 'react';
 import { Alert, Image, ScrollView, StyleSheet, View } from 'react-native';
 
-import { ThemedText } from '@/components/shared/ThemedText';
 import { bell, bell_on } from '@/assets/icons';
-import { LineChartView } from '@/components/statistics/Chart';
-import { Spacing } from '@/styles/globals';
-import { useEffect, useState } from 'react';
 import { SegmentOutlined } from '@/components/shared/SegmentOutlined';
+import { ThemedText } from '@/components/shared/ThemedText';
+import { LineChartView } from '@/components/statistics/Chart';
 import { RecentTransactions } from '@/components/statistics/Transactions';
 import { TProps, useRecentTransactions } from '@/hooks/statistics/useRecentTransactions';
+import { Spacing } from '@/styles/globals';
 
 export default function Statistics() {
-  let isNotifications = false;
+  const isNotifications = false;
   const [isActive, setIsActive] = useState<TProps>('all');
   const { data, isLoading, error } = useRecentTransactions({ range: isActive });
 

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+
 import chartData from '@/constants/chart_mock_data.json';
 
 export interface TChartData {

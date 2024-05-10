@@ -1,12 +1,14 @@
 import dayjs from 'dayjs';
 import { StyleSheet, View } from 'react-native';
-import { NoDataView } from '../shared/NoData';
-import Loader from '../shared/Loader';
-import { globals, Spacing } from '@/styles/globals';
-import { Colors } from '@/styles/colors';
-import { ThemedText } from '../shared/ThemedText';
+
 import { TRecentTransactions } from '@/hooks/statistics/useRecentTransactions';
+import { Colors } from '@/styles/colors';
+import { globals, Spacing } from '@/styles/globals';
 import { capitalizeFirstLetter } from '@/utils/supporters';
+
+import Loader from '../shared/Loader';
+import { NoDataView } from '../shared/NoData';
+import { ThemedText } from '../shared/ThemedText';
 
 export const RecentTransactions = ({
   data,

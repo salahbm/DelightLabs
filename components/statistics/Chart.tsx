@@ -126,7 +126,7 @@ export const LineChartView = () => {
                       +{items[0].value}
                     </ThemedText>
                     <ThemedText type="body" style={{ color: Colors.light.white }}>
-                      {/* @ts-ignore */}
+                      {/* @ts-expect-error timestamp does not exist in the type but it is injected */}
                       {dayjs(items[0]?.timestamp).format('MMM DD, HH:mm')}
                     </ThemedText>
                     <View style={styles.triangle} />
@@ -138,7 +138,7 @@ export const LineChartView = () => {
                     </ThemedText>
 
                     <ThemedText type="body" style={{ color: Colors.light.white }}>
-                      {/* @ts-ignore */}
+                      {/* @ts-expect-error timestamp does not exist in the type but it is injected  */}
                       {dayjs(items[0]?.timestamp).format('MMM DD, HH:mm')}
                     </ThemedText>
                     <View style={styles.triangleExpense} />
