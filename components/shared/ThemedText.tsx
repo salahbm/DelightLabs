@@ -5,7 +5,16 @@ import { useThemeColor } from '@/hooks/common/useThemeColor';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'body' | 'bodySemiBold';
+  type?:
+    | 'default'
+    | 'title'
+    | 'defaultSemiBold'
+    | 'subtitle'
+    | 'link'
+    | 'body'
+    | 'bodySemiBold'
+    | 'bodyMSemiBold'
+    | 'defaultBold';
 };
 
 export function ThemedText({
@@ -24,6 +33,8 @@ export function ThemedText({
         type === 'default' ? styles.default : undefined,
         type === 'body' ? styles.body : undefined,
         type === 'bodySemiBold' ? styles.bodySemiBold : undefined,
+        type === 'bodyMSemiBold' ? styles.bodyMSemiBold : undefined,
+        type === 'defaultBold' ? styles.defaultBold : undefined,
         type === 'title' ? styles.title : undefined,
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
@@ -41,6 +52,11 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontFamily: 'PoppinsRegular400',
   },
+  defaultBold: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontFamily: 'PoppinsBold700',
+  },
   body: {
     fontSize: 12,
     lineHeight: 22,
@@ -49,6 +65,11 @@ const styles = StyleSheet.create({
   bodySemiBold: {
     fontSize: 14,
     lineHeight: 22,
+    fontFamily: 'PoppinsSemiBold600',
+  },
+  bodyMSemiBold: {
+    fontSize: 18,
+    lineHeight: 27,
     fontFamily: 'PoppinsSemiBold600',
   },
   defaultSemiBold: {

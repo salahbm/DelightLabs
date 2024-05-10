@@ -1,14 +1,13 @@
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { useColorScheme } from '@/hooks/common/useColorScheme';
 import { Colors } from '@/styles/colors';
 import { Segment } from '../shared/Segment';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { globals, Spacing, width } from '@/styles/globals';
 import dayjs from 'dayjs';
-import { TProps, useChart } from '@/hooks/useChart/useChart';
+import { TProps, useChart } from '@/hooks/statistics/useChart';
 import { ThemedText } from '../shared/ThemedText';
 import { LineChart, lineDataItem } from 'react-native-gifted-charts';
-import { ThemedView } from '../shared/ThemedView';
 
 export const LineChartView = () => {
   const colorScheme = useColorScheme();
@@ -114,8 +113,6 @@ export const LineChartView = () => {
             pointerStripWidth: 1,
             pointer1Color: Colors.light.primary,
             pointer2Color: Colors.light.green,
-            // pointerStripUptoDataPoint: true,
-            // autoAdjustPointerLabelPosition: true,
             radius: 8,
             pointerLabelComponent: (items: lineDataItem[]) => {
               return (

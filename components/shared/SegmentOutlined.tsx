@@ -1,9 +1,9 @@
-import { TProps } from '@/hooks/statistics/useChart';
 import { Colors } from '@/styles/colors';
 import { Fonts } from '@/styles/fonts';
+import { Spacing } from '@/styles/globals';
 import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-export const Segment = ({
+export const SegmentOutlined = ({
   labels,
   setIsActive,
   isActive,
@@ -11,7 +11,7 @@ export const Segment = ({
 }: {
   labels: string[];
   setIsActive: (val: string) => void;
-  isActive: TProps;
+  isActive: string;
   containerStyle?: ViewStyle;
 }) => {
   return (
@@ -20,12 +20,8 @@ export const Segment = ({
         return (
           <TouchableOpacity
             key={index}
+            style={styles.segment}
             onPress={() => setIsActive(label.toLocaleLowerCase())}
-            style={[
-              isActive.toLocaleLowerCase() === label.toLocaleLowerCase()
-                ? styles.activeSegment
-                : styles.segment,
-            ]}
           >
             <Text
               style={
@@ -44,35 +40,20 @@ export const Segment = ({
 };
 const styles = StyleSheet.create({
   segmentContainer: {
-    width: 172,
-    alignSelf: 'center',
-    height: 34,
     flexDirection: 'row',
-    borderRadius: 20,
-    backgroundColor: Colors.light.grey_background,
+    overflow: 'hidden',
   },
   segment: {
-    flex: 1,
+    paddingBottom: 12,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 2,
-    borderRadius: 20,
-    backgroundColor: Colors.light.grey_background,
-  },
-  activeSegment: {
-    backgroundColor: Colors.light.primary,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 2,
-    borderRadius: 20,
+    marginEnd: Spacing.m,
   },
   activeText: {
     ...Fonts.subtitle,
-    color: Colors.light.white,
+    color: Colors.light.primary,
   },
   inactiveText: {
     ...Fonts.subtitle,
-    color: Colors.light.grey_subtitle,
+    color: Colors.light.grey_title,
   },
 });
